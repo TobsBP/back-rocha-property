@@ -5,7 +5,7 @@ export default defineConfig({
 	out: './drizzle',
 	dialect: 'postgresql',
 	dbCredentials: {
-		url: process.env.DATABASE_URL ?? '', // Drizzle-kit expects a string, empty string will cause a clear error
+		url: process.env.DATABASE_URL ?? '',
 	},
 	verbose: true,
 	strict: true,
