@@ -15,7 +15,7 @@ export async function productsRoutes(fastify: FastifyInstance) {
 		container.resolve<ProductsController>('productsController');
 
 	fastify.get(
-		'/',
+		'',
 		{
 			schema: {
 				tags: ['Products'],
@@ -39,7 +39,7 @@ export async function productsRoutes(fastify: FastifyInstance) {
 	);
 
 	fastify.post(
-		'/',
+		'',
 		{
 			schema: {
 				tags: ['Products'],

@@ -5,11 +5,16 @@ import {
 	UuidSchema,
 } from '../../../shared/schemas/common.js';
 
+export const UserRoleSchema = Type.Union([
+	Type.Literal('admin'),
+	Type.Literal('user'),
+]);
+
 export const UserSchema = Type.Object({
 	id: UuidSchema,
 	email: Type.String({ format: 'email' }),
 	name: Type.String(),
-	companyId: Type.Union([UuidSchema, Type.Null()]),
+	role: UserRoleSchema,
 	createdAt: Type.String({ format: 'date-time' }),
 	updatedAt: Type.String({ format: 'date-time' }),
 });
@@ -17,11 +22,13 @@ export const UserSchema = Type.Object({
 export const CreateUserBodySchema = Type.Object({
 	email: Type.String({ format: 'email' }),
 	name: Type.String({ minLength: 2, maxLength: 255 }),
+	role: Type.Optional(UserRoleSchema),
 });
 
 export const UpdateUserBodySchema = Type.Partial(
 	Type.Object({
 		name: Type.String({ minLength: 2, maxLength: 255 }),
+		role: UserRoleSchema,
 	}),
 );
 
@@ -32,6 +39,7 @@ export const UserParamsSchema = Type.Object({
 export const ListUsersQuerySchema = PaginationQuerySchema;
 export const PaginatedUsersSchema = PaginatedResponse(UserSchema);
 
+export type UserRole = Static<typeof UserRoleSchema>;
 export type UserDto = Static<typeof UserSchema>;
 export type CreateUserBody = Static<typeof CreateUserBodySchema>;
 export type UpdateUserBody = Static<typeof UpdateUserBodySchema>;
