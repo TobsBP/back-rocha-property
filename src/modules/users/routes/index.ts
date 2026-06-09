@@ -1,6 +1,6 @@
 import type { FastifyInstance } from 'fastify';
-import { container } from '../../../core/di/container.js';
-import { ErrorResponseSchema } from '../../../shared/schemas/common.js';
+import { container } from '@/core/di/container.js';
+import { ErrorResponseSchema } from '@/shared/schemas/common.js';
 import type { UsersController } from '../controllers/users.controller.js';
 import {
 	CreateUserBodySchema,

@@ -1,11 +1,11 @@
-import { NotFoundError } from '../../../core/errors/index.js';
-import type { Product } from '../../../infra/db/schema/products.js';
+import { NotFoundError } from '@/core/errors/index.js';
+import type { Product } from '@/infra/db/schema/products.js';
 import type { IProductsRepository } from '../interfaces/products.repository.interface.js';
 import type { IProductsService } from '../interfaces/products.service.interface.js';
 import type {
 	CreateProductBody,
-	UpdateProductBody,
 	ListProductsQuery,
+	UpdateProductBody,
 } from '../schemas/index.js';
 
 export class ProductsService implements IProductsService {

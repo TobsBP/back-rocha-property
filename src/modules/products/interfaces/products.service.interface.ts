@@ -1,5 +1,9 @@
-import type { Product } from '../../../infra/db/schema/products.js';
-import type { CreateProductBody, UpdateProductBody, ListProductsQuery } from '../schemas/index.js';
+import type { Product } from '@/infra/db/schema/products.js';
+import type {
+	CreateProductBody,
+	ListProductsQuery,
+	UpdateProductBody,
+} from '../schemas/index.js';
 
 export interface IProductsService {
 	getById(id: string): Promise<Product>;

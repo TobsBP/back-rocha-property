@@ -2,9 +2,9 @@ import type { FastifyReply, FastifyRequest } from 'fastify';
 import type { IProductsService } from '../interfaces/products.service.interface.js';
 import type {
 	CreateProductBody,
+	ListProductsQuery,
 	ProductParams,
 	UpdateProductBody,
-	ListProductsQuery,
 } from '../schemas/index.js';
 
 export class ProductsController {

@@ -1,6 +1,6 @@
 import type { FastifyError } from 'fastify';
 import fp from 'fastify-plugin';
-import { AppError } from '../../core/errors/index.js';
+import { AppError } from '@/core/errors/index.js';
 
 interface ValidationDetail {
 	keyword: string;

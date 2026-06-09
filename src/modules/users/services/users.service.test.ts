@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, type Mock, vi } from 'vitest';
-import { NotFoundError } from '../../../core/errors/index.js';
+import { NotFoundError } from '@/core/errors/index.js';
 import type { IUsersRepository } from '../interfaces/users.repository.interface.js';
 import { UsersService } from './users.service.js';
 

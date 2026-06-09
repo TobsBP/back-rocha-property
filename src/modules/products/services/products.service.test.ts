@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, type Mock, vi } from 'vitest';
-import { NotFoundError } from '../../../core/errors/index.js';
+import { NotFoundError } from '@/core/errors/index.js';
 import type { IProductsRepository } from '../interfaces/products.repository.interface.js';
 import { ProductsService } from './products.service.js';
 
@@ -66,8 +66,8 @@ describe('ProductsService', () => {
 		const updateData = { name: 'Updated Name' };
 		const updatedProduct = { ...mockProduct, ...updateData };
 		mockRepo.update.mockResolvedValue(updatedProduct);
-		await expect(
-			service.update(mockProduct.id, updateData),
-		).resolves.toEqual(updatedProduct);
+		await expect(service.update(mockProduct.id, updateData)).resolves.toEqual(
+			updatedProduct,
+		);
 	});
 });

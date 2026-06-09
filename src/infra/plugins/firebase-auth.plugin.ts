@@ -1,12 +1,9 @@
 import { eq } from 'drizzle-orm';
 import fp from 'fastify-plugin';
 import admin from 'firebase-admin';
-import {
-	NotFoundError,
-	UnauthorizedError,
-} from '../../core/errors/index.js';
-import { getDb } from '../db/client.js';
-import { users } from '../db/schema/index.js';
+import { NotFoundError, UnauthorizedError } from '@/core/errors/index.js';
+import { getDb } from '@/infra/db/client.js';
+import { users } from '@/infra/db/schema/index.js';
 
 declare module 'fastify' {
 	interface FastifyRequest {
@@ -81,6 +78,11 @@ export default fp(async (fastify) => {
 			throw new NotFoundError('User', decoded.email);
 		}
 
-		request.authUser = { id: user.id, email: user.email, name: user.name, role: user.role };
+		request.authUser = {
+			id: user.id,
+			email: user.email,
+			name: user.name,
+			role: user.role,
+		};
 	});
 });

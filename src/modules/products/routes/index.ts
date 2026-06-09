@@ -1,5 +1,5 @@
 import type { FastifyInstance } from 'fastify';
-import { container } from '../../../core/di/container.js';
+import { container } from '@/core/di/container.js';
 import type { ProductsController } from '../controllers/products.controller.js';
 import {
 	CreateProductBodySchema,

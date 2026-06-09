@@ -1,4 +1,4 @@
-import type { User } from '../../../infra/db/schema/users.js';
+import type { User } from '@/infra/db/schema/users.js';
 import type {
 	CreateUserBody,
 	ListUsersQuery,

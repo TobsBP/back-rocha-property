@@ -23,6 +23,12 @@
 			"quoteStyle": "single"
 		}
 	},
+	"overrides": [
+		{
+			"includes": ["**/*.test.ts"],
+			"linter": { "enabled": false }
+		}
+	],
 	"assist": {
 		"enabled": true,
 		"actions": {

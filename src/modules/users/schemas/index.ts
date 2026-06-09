@@ -3,7 +3,7 @@ import {
 	PaginatedResponse,
 	PaginationQuerySchema,
 	UuidSchema,
-} from '../../../shared/schemas/common.js';
+} from '@/shared/schemas/common.js';
 
 export const UserRoleSchema = Type.Union([
 	Type.Literal('admin'),

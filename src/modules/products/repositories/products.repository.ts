@@ -1,11 +1,11 @@
 import { count, eq } from 'drizzle-orm';
-import type { Db } from '../../../infra/db/client.js';
-import { products, type Product } from '../../../infra/db/schema/index.js';
+import type { Db } from '@/infra/db/client.js';
+import { type Product, products } from '@/infra/db/schema/index.js';
 import type { IProductsRepository } from '../interfaces/products.repository.interface.js';
 import type {
 	CreateProductBody,
-	UpdateProductBody,
 	ListProductsQuery,
+	UpdateProductBody,
 } from '../schemas/index.js';
 
 export class ProductsRepository implements IProductsRepository {

@@ -1,4 +1,4 @@
-import { NotFoundError } from '../../../core/errors/index.js';
+import { NotFoundError } from '@/core/errors/index.js';
 import type { IUsersRepository } from '../interfaces/users.repository.interface.js';
 import type { IUsersService } from '../interfaces/users.service.interface.js';
 import type {
