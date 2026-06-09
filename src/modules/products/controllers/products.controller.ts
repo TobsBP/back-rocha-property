@@ -1,4 +1,5 @@
 import type { FastifyReply, FastifyRequest } from 'fastify';
+import { uploadImage } from '@/shared/cloudinary.js';
 import type { IProductsService } from '../interfaces/products.service.interface.js';
 import type {
 	CreateProductBody,
@@ -43,5 +44,17 @@ export class ProductsController {
 	) => {
 		const result = await this.service.update(request.params.id, request.body);
 		return reply.send(result);
+	};
+
+	uploadImage = async (request: FastifyRequest, reply: FastifyReply) => {
+		const data = await request.file();
+		if (!data) {
+			return reply.status(400).send({ message: 'No file provided' });
+		}
+
+		const buffer = await data.toBuffer();
+		const url = await uploadImage(buffer);
+
+		return reply.status(201).send({ url });
 	};
 }

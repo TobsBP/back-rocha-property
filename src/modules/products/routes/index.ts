@@ -8,6 +8,7 @@ import {
 	ProductParamsSchema,
 	ProductSchema,
 	UpdateProductBodySchema,
+	UploadImageResponseSchema,
 } from '../schemas/index.js';
 
 export async function productsRoutes(fastify: FastifyInstance) {
@@ -48,6 +49,18 @@ export async function productsRoutes(fastify: FastifyInstance) {
 			},
 		},
 		controller.create,
+	);
+
+	fastify.post(
+		'/img',
+		{
+			schema: {
+				tags: ['Products'],
+				consumes: ['multipart/form-data'],
+				response: { 201: UploadImageResponseSchema },
+			},
+		},
+		controller.uploadImage,
 	);
 
 	fastify.patch(

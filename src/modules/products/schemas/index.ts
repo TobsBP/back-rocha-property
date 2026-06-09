@@ -35,8 +35,13 @@ export const ProductParamsSchema = Type.Object({
 export const ListProductsQuerySchema = PaginationQuerySchema;
 export const PaginatedProductsSchema = PaginatedResponse(ProductSchema);
 
+export const UploadImageResponseSchema = Type.Object({
+	url: Type.String({ format: 'uri' }),
+});
+
 export type ProductDto = Static<typeof ProductSchema>;
 export type CreateProductBody = Static<typeof CreateProductBodySchema>;
 export type UpdateProductBody = Static<typeof UpdateProductBodySchema>;
 export type ProductParams = Static<typeof ProductParamsSchema>;
 export type ListProductsQuery = Static<typeof ListProductsQuerySchema>;
+export type UploadImageResponse = Static<typeof UploadImageResponseSchema>;

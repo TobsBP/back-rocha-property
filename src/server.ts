@@ -1,5 +1,6 @@
 import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
+import multipart from '@fastify/multipart';
 import Fastify from 'fastify';
 import { env } from './core/config/env.js';
 import { setupContainer } from './core/di/container.js';
@@ -17,6 +18,7 @@ const fastify = Fastify({
 async function bootstrap() {
 	setupContainer();
 	await fastify.register(cors, { origin: true });
+	await fastify.register(multipart, { limits: { fileSize: 10 * 1024 * 1024 } }); // 10 MB
 	await fastify.register(helmet, {
 		contentSecurityPolicy: false,
 	});
