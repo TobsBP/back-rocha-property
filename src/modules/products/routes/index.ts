@@ -1,5 +1,6 @@
 import type { FastifyInstance } from 'fastify';
 import { container } from '@/core/di/container.js';
+import { requireAdmin } from '@/shared/hooks/require-admin.hook.js';
 import type { ProductsController } from '../controllers/products.controller.js';
 import {
 	CreateProductBodySchema,
@@ -9,6 +10,9 @@ import {
 	ProductSchema,
 	UpdateProductBodySchema,
 	UploadImageResponseSchema,
+	type CreateProductBody,
+	type ProductParams,
+	type UpdateProductBody,
 } from '../schemas/index.js';
 
 export async function productsRoutes(fastify: FastifyInstance) {
@@ -41,9 +45,10 @@ export async function productsRoutes(fastify: FastifyInstance) {
 		controller.getById,
 	);
 
-	fastify.post(
+	fastify.post<{ Body: CreateProductBody }>(
 		'',
 		{
+			preHandler: requireAdmin,
 			schema: {
 				tags: ['Products'],
 				summary: 'Create product',
@@ -57,6 +62,7 @@ export async function productsRoutes(fastify: FastifyInstance) {
 	fastify.post(
 		'/img',
 		{
+			preHandler: requireAdmin,
 			schema: {
 				tags: ['Products'],
 				summary: 'Upload product image',
@@ -67,9 +73,10 @@ export async function productsRoutes(fastify: FastifyInstance) {
 		controller.uploadImage,
 	);
 
-	fastify.patch(
+	fastify.patch<{ Params: ProductParams; Body: UpdateProductBody }>(
 		'/:id',
 		{
+			preHandler: requireAdmin,
 			schema: {
 				tags: ['Products'],
 				summary: 'Update product',

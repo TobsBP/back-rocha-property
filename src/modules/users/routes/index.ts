@@ -1,5 +1,6 @@
 import type { FastifyInstance } from 'fastify';
 import { container } from '@/core/di/container.js';
+import { requireAdmin } from '@/shared/hooks/require-admin.hook.js';
 import { ErrorResponseSchema } from '@/shared/schemas/common.js';
 import type { UsersController } from '../controllers/users.controller.js';
 import {
@@ -9,6 +10,9 @@ import {
 	UpdateUserBodySchema,
 	UserParamsSchema,
 	UserSchema,
+	type CreateUserBody,
+	type UpdateUserBody,
+	type UserParams,
 } from '../schemas/index.js';
 
 export async function usersRoutes(fastify: FastifyInstance) {
@@ -43,9 +47,10 @@ export async function usersRoutes(fastify: FastifyInstance) {
 		controller.getById,
 	);
 
-	fastify.post(
+	fastify.post<{ Body: CreateUserBody }>(
 		'',
 		{
+			preHandler: requireAdmin,
 			schema: {
 				tags: ['Users'],
 				summary: 'Create user',
@@ -59,9 +64,10 @@ export async function usersRoutes(fastify: FastifyInstance) {
 		controller.create,
 	);
 
-	fastify.patch(
+	fastify.patch<{ Params: UserParams; Body: UpdateUserBody }>(
 		'/:id',
 		{
+			preHandler: requireAdmin,
 			schema: {
 				tags: ['Users'],
 				summary: 'Update user',
@@ -76,9 +82,10 @@ export async function usersRoutes(fastify: FastifyInstance) {
 		controller.update,
 	);
 
-	fastify.delete(
+	fastify.delete<{ Params: UserParams }>(
 		'/:id',
 		{
+			preHandler: requireAdmin,
 			schema: {
 				tags: ['Users'],
 				summary: 'Delete user',
