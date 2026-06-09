@@ -18,6 +18,7 @@ const envSchema = Type.Object({
 	CLOUDINARY_CLOUD_NAME: Type.String(),
 	CLOUDINARY_API_KEY: Type.String(),
 	CLOUDINARY_API_SECRET: Type.String(),
+	FIREBASE_API_KEY: Type.String(),
 });
 
 type Env = Static<typeof envSchema>;

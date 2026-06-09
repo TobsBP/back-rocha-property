@@ -22,10 +22,20 @@ export class ProductsService implements IProductsService {
 		return item;
 	}
 
-	async list(
-		query: ListProductsQuery,
-	): Promise<{ data: Product[]; total: number }> {
-		return this.repo.findAll(query);
+	async list(query: ListProductsQuery) {
+		const page = query.page ?? 1;
+		const limit = query.limit ?? 20;
+		const { data, total } = await this.repo.findAll(query);
+
+		return {
+			data,
+			meta: {
+				total,
+				page,
+				limit,
+				totalPages: Math.ceil(total / limit),
+			},
+		};
 	}
 
 	async create(data: CreateProductBody): Promise<Product> {

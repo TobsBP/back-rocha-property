@@ -7,7 +7,10 @@ import type {
 
 export interface IProductsService {
 	getById(id: string): Promise<Product>;
-	list(query: ListProductsQuery): Promise<{ data: Product[]; total: number }>;
+	list(query: ListProductsQuery): Promise<{
+		data: Product[];
+		meta: { total: number; page: number; limit: number; totalPages: number };
+	}>;
 	create(data: CreateProductBody): Promise<Product>;
 	update(id: string, data: UpdateProductBody): Promise<Product>;
 }
