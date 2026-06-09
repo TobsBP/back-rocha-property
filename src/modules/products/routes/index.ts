@@ -20,6 +20,7 @@ export async function productsRoutes(fastify: FastifyInstance) {
 		{
 			schema: {
 				tags: ['Products'],
+				summary: 'List products',
 				querystring: ListProductsQuerySchema,
 				response: { 200: PaginatedProductsSchema },
 			},
@@ -32,6 +33,7 @@ export async function productsRoutes(fastify: FastifyInstance) {
 		{
 			schema: {
 				tags: ['Products'],
+				summary: 'Get product by ID',
 				params: ProductParamsSchema,
 				response: { 200: ProductSchema },
 			},
@@ -44,6 +46,7 @@ export async function productsRoutes(fastify: FastifyInstance) {
 		{
 			schema: {
 				tags: ['Products'],
+				summary: 'Create product',
 				body: CreateProductBodySchema,
 				response: { 201: ProductSchema },
 			},
@@ -56,6 +59,7 @@ export async function productsRoutes(fastify: FastifyInstance) {
 		{
 			schema: {
 				tags: ['Products'],
+				summary: 'Upload product image',
 				consumes: ['multipart/form-data'],
 				response: { 201: UploadImageResponseSchema },
 			},
@@ -68,6 +72,7 @@ export async function productsRoutes(fastify: FastifyInstance) {
 		{
 			schema: {
 				tags: ['Products'],
+				summary: 'Update product',
 				params: ProductParamsSchema,
 				body: UpdateProductBodySchema,
 				response: { 200: ProductSchema },

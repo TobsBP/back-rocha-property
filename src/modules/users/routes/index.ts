@@ -15,7 +15,7 @@ export async function usersRoutes(fastify: FastifyInstance) {
 	const controller = container.resolve<UsersController>('usersController');
 
 	fastify.get(
-		'/',
+		'',
 		{
 			schema: {
 				tags: ['Users'],
@@ -44,7 +44,7 @@ export async function usersRoutes(fastify: FastifyInstance) {
 	);
 
 	fastify.post(
-		'/',
+		'',
 		{
 			schema: {
 				tags: ['Users'],
