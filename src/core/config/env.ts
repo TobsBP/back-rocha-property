@@ -15,7 +15,9 @@ const envSchema = Type.Object({
 	),
 	PORT: Type.Number({ default: 3000 }),
 	DATABASE_URL: Type.String(),
-	// Adicione outras variáveis conforme o projeto crescer
+	CLOUDINARY_CLOUD_NAME: Type.String(),
+	CLOUDINARY_API_KEY: Type.String(),
+	CLOUDINARY_API_SECRET: Type.String(),
 });
 
 type Env = Static<typeof envSchema>;
