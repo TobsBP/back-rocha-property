@@ -3,16 +3,16 @@ import { container } from '@/core/di/container.js';
 import { requireAdmin } from '@/shared/hooks/require-admin.hook.js';
 import type { ProductsController } from '../controllers/products.controller.js';
 import {
+	type CreateProductBody,
 	CreateProductBodySchema,
 	ListProductsQuerySchema,
 	PaginatedProductsSchema,
+	type ProductParams,
 	ProductParamsSchema,
 	ProductSchema,
+	type UpdateProductBody,
 	UpdateProductBodySchema,
 	UploadImageResponseSchema,
-	type CreateProductBody,
-	type ProductParams,
-	type UpdateProductBody,
 } from '../schemas/index.js';
 
 export async function productsRoutes(fastify: FastifyInstance) {

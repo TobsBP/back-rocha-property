@@ -4,15 +4,15 @@ import { requireAdmin } from '@/shared/hooks/require-admin.hook.js';
 import { ErrorResponseSchema } from '@/shared/schemas/common.js';
 import type { UsersController } from '../controllers/users.controller.js';
 import {
+	type CreateUserBody,
 	CreateUserBodySchema,
 	ListUsersQuerySchema,
 	PaginatedUsersSchema,
+	type UpdateUserBody,
 	UpdateUserBodySchema,
+	type UserParams,
 	UserParamsSchema,
 	UserSchema,
-	type CreateUserBody,
-	type UpdateUserBody,
-	type UserParams,
 } from '../schemas/index.js';
 
 export async function usersRoutes(fastify: FastifyInstance) {
