@@ -1,21 +1,23 @@
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { uploadImage } from '@/shared/cloudinary.js';
-import type { IProductsService } from '../interfaces/products.service.interface.js';
+import type { IPropertiesService } from '../interfaces/properties.service.interface.js';
 import type {
-	CreateProductBody,
-	ListProductsQuery,
-	ProductParams,
-	UpdateProductBody,
+	CreatePropertyBody,
+	ListPropertiesQuery,
+	PropertyParams,
+	UpdatePropertyBody,
 } from '../schemas/index.js';
 
-export class ProductsController {
-	private service: IProductsService;
-	constructor({ productsService }: { productsService: IProductsService }) {
-		this.service = productsService;
+export class PropertiesController {
+	private service: IPropertiesService;
+	constructor({
+		propertiesService,
+	}: { propertiesService: IPropertiesService }) {
+		this.service = propertiesService;
 	}
 
 	getById = async (
-		request: FastifyRequest<{ Params: ProductParams }>,
+		request: FastifyRequest<{ Params: PropertyParams }>,
 		reply: FastifyReply,
 	) => {
 		const result = await this.service.getById(request.params.id);
@@ -23,7 +25,7 @@ export class ProductsController {
 	};
 
 	list = async (
-		request: FastifyRequest<{ Querystring: ListProductsQuery }>,
+		request: FastifyRequest<{ Querystring: ListPropertiesQuery }>,
 		reply: FastifyReply,
 	) => {
 		const result = await this.service.list(request.query);
@@ -31,7 +33,7 @@ export class ProductsController {
 	};
 
 	create = async (
-		request: FastifyRequest<{ Body: CreateProductBody }>,
+		request: FastifyRequest<{ Body: CreatePropertyBody }>,
 		reply: FastifyReply,
 	) => {
 		const result = await this.service.create(request.body);
@@ -39,7 +41,10 @@ export class ProductsController {
 	};
 
 	update = async (
-		request: FastifyRequest<{ Params: ProductParams; Body: UpdateProductBody }>,
+		request: FastifyRequest<{
+			Params: PropertyParams;
+			Body: UpdatePropertyBody;
+		}>,
 		reply: FastifyReply,
 	) => {
 		const result = await this.service.update(request.params.id, request.body);
