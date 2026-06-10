@@ -1,10 +1,9 @@
-import type { FastifyInstance } from 'fastify';
+import type { FastifyPluginAsyncTypebox } from '@fastify/type-provider-typebox';
 import { container } from '@/core/di/container.js';
 import { requireAdmin } from '@/shared/hooks/require-admin.hook.js';
 import { ErrorResponseSchema } from '@/shared/schemas/common.js';
 import type { UsersController } from '../controllers/users.controller.js';
 import {
-	type CreateUserBody,
 	CreateUserBodySchema,
 	ListUsersQuerySchema,
 	PaginatedUsersSchema,
@@ -15,7 +14,7 @@ import {
 	UserSchema,
 } from '../schemas/index.js';
 
-export async function usersRoutes(fastify: FastifyInstance) {
+export const usersRoutes: FastifyPluginAsyncTypebox = async (fastify) => {
 	const controller = container.resolve<UsersController>('usersController');
 
 	fastify.get(
@@ -47,7 +46,7 @@ export async function usersRoutes(fastify: FastifyInstance) {
 		controller.getById,
 	);
 
-	fastify.post<{ Body: CreateUserBody }>(
+	fastify.post(
 		'',
 		{
 			preHandler: requireAdmin,
@@ -64,7 +63,7 @@ export async function usersRoutes(fastify: FastifyInstance) {
 		controller.create,
 	);
 
-	fastify.patch<{ Params: UserParams; Body: UpdateUserBody }>(
+	fastify.patch(
 		'/:id',
 		{
 			preHandler: requireAdmin,
@@ -98,4 +97,4 @@ export async function usersRoutes(fastify: FastifyInstance) {
 		},
 		controller.remove,
 	);
-}
+};

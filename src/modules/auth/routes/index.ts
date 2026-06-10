@@ -1,4 +1,4 @@
-import type { FastifyInstance } from 'fastify';
+import type { FastifyPluginAsyncTypebox } from '@fastify/type-provider-typebox';
 import { container } from '@/core/di/container.js';
 import { ErrorResponseSchema } from '@/shared/schemas/common.js';
 import type { AuthController } from '../controllers/auth.controller.js';
@@ -8,7 +8,7 @@ import {
 	SignUpBodySchema,
 } from '../schemas/index.js';
 
-export async function authRoutes(fastify: FastifyInstance) {
+export const authRoutes: FastifyPluginAsyncTypebox = async (fastify) => {
 	const controller = container.resolve<AuthController>('authController');
 
 	fastify.post(
@@ -44,4 +44,4 @@ export async function authRoutes(fastify: FastifyInstance) {
 		},
 		controller.signUp,
 	);
-}
+};

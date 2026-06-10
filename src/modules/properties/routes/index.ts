@@ -1,4 +1,4 @@
-import type { FastifyInstance } from 'fastify';
+import type { FastifyPluginAsyncTypebox } from '@fastify/type-provider-typebox';
 import { container } from '@/core/di/container.js';
 import { requireAdmin } from '@/shared/hooks/require-admin.hook.js';
 import type { PropertiesController } from '../controllers/properties.controller.js';
@@ -6,16 +6,15 @@ import {
 	type CreatePropertyBody,
 	CreatePropertyBodySchema,
 	ListPropertiesQuerySchema,
+	PaginatedAdminPropertiesSchema,
 	PaginatedPropertiesSchema,
-	type PropertyParams,
 	PropertyParamsSchema,
 	PropertySchema,
-	type UpdatePropertyBody,
 	UpdatePropertyBodySchema,
 	UploadImageResponseSchema,
 } from '../schemas/index.js';
 
-export async function propertiesRoutes(fastify: FastifyInstance) {
+export const propertiesRoutes: FastifyPluginAsyncTypebox = async (fastify) => {
 	const controller = container.resolve<PropertiesController>(
 		'propertiesController',
 	);
@@ -34,6 +33,20 @@ export async function propertiesRoutes(fastify: FastifyInstance) {
 	);
 
 	fastify.get(
+		'/admin/summary',
+		{
+			preHandler: requireAdmin,
+			schema: {
+				tags: ['Properties'],
+				summary: 'List properties for admin (name, location, status, price)',
+				querystring: ListPropertiesQuerySchema,
+				response: { 200: PaginatedAdminPropertiesSchema },
+			},
+		},
+		controller.listAdmin,
+	);
+
+	fastify.get(
 		'/:id',
 		{
 			schema: {
@@ -46,7 +59,7 @@ export async function propertiesRoutes(fastify: FastifyInstance) {
 		controller.getById,
 	);
 
-	fastify.post<{ Body: CreatePropertyBody }>(
+	fastify.post(
 		'',
 		{
 			preHandler: requireAdmin,
@@ -74,7 +87,7 @@ export async function propertiesRoutes(fastify: FastifyInstance) {
 		controller.uploadImage,
 	);
 
-	fastify.patch<{ Params: PropertyParams; Body: UpdatePropertyBody }>(
+	fastify.patch(
 		'/:id',
 		{
 			preHandler: requireAdmin,
@@ -88,4 +101,4 @@ export async function propertiesRoutes(fastify: FastifyInstance) {
 		},
 		controller.update,
 	);
-}
+};

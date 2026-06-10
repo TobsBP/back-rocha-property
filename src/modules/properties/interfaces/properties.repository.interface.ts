@@ -1,5 +1,6 @@
 import type { Property } from '@/infra/db/schema/properties.js';
 import type {
+	AdminPropertySummary,
 	CreatePropertyBody,
 	ListPropertiesQuery,
 	UpdatePropertyBody,
@@ -10,6 +11,9 @@ export interface IPropertiesRepository {
 	findAll(
 		query: ListPropertiesQuery,
 	): Promise<{ data: Property[]; total: number }>;
+	findAllSummary(
+		query: ListPropertiesQuery,
+	): Promise<{ data: AdminPropertySummary[]; total: number }>;
 	create(data: CreatePropertyBody): Promise<Property>;
 	update(id: string, data: UpdatePropertyBody): Promise<Property | null>;
 }

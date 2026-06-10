@@ -84,6 +84,17 @@ export const PropertyParamsSchema = Type.Object({
 export const ListPropertiesQuerySchema = PaginationQuerySchema;
 export const PaginatedPropertiesSchema = PaginatedResponse(PropertySchema);
 
+export const AdminPropertySummarySchema = Type.Object({
+	id: UuidSchema,
+	name: Type.String(),
+	location: Type.String(),
+	status: PropertyStatusSchema,
+	price: Type.String(),
+});
+export const PaginatedAdminPropertiesSchema = PaginatedResponse(
+	AdminPropertySummarySchema,
+);
+
 export const UploadImageResponseSchema = Type.Object({
 	url: Type.String({ format: 'uri' }),
 });
@@ -94,3 +105,4 @@ export type UpdatePropertyBody = Static<typeof UpdatePropertyBodySchema>;
 export type PropertyParams = Static<typeof PropertyParamsSchema>;
 export type ListPropertiesQuery = Static<typeof ListPropertiesQuerySchema>;
 export type UploadImageResponse = Static<typeof UploadImageResponseSchema>;
+export type AdminPropertySummary = Static<typeof AdminPropertySummarySchema>;

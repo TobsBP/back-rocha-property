@@ -20,6 +20,7 @@
 		"@fastify/helmet": "^13.0.2",
 		"@fastify/multipart": "^10.0.0",
 		"@fastify/swagger": "^9.0.0",
+		"@fastify/type-provider-typebox": "^6.1.0",
 		"@scalar/fastify-api-reference": "^1.25.0",
 		"@sinclair/typebox": "^0.34.49",
 		"awilix": "^13.0.3",

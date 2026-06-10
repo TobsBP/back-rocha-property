@@ -32,6 +32,14 @@ export class PropertiesController {
 		return reply.send(result);
 	};
 
+	listAdmin = async (
+		request: FastifyRequest<{ Querystring: ListPropertiesQuery }>,
+		reply: FastifyReply,
+	) => {
+		const result = await this.service.listAdminSummary(request.query);
+		return reply.send(result);
+	};
+
 	create = async (
 		request: FastifyRequest<{ Body: CreatePropertyBody }>,
 		reply: FastifyReply,
