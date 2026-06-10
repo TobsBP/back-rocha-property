@@ -57,7 +57,7 @@ src/
 
 ## Auth
 
-Toda rota exige `Authorization: Bearer <firebase-token>` e `x-company-id: <uuid>`.
+Toda rota exige `Authorization: Bearer <firebase-token>`.
 
 Para rotas públicas, use `config: { public: true }`.
 Para rotas sem multi-tenancy, use `config: { tenancy: false }`.
