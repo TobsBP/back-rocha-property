@@ -1,3 +1,5 @@
+import { galleryRoutes } from "./gallery/routes/index.js";
+import { gallerySalesRoutes } from "./gallery/routes/gallery-sales.routes.js";
 import type { FastifyInstance } from 'fastify';
 import { authRoutes } from './auth/routes/index.js';
 import { propertiesRoutes } from './properties/routes/index.js';
@@ -7,4 +9,6 @@ export async function appModules(fastify: FastifyInstance) {
 	await fastify.register(authRoutes, { prefix: '/auth' });
 	await fastify.register(usersRoutes, { prefix: '/users' });
 	await fastify.register(propertiesRoutes, { prefix: '/properties' });
+    await fastify.register(galleryRoutes, { prefix: "/gallery" });
+	await fastify.register(gallerySalesRoutes, { prefix: '/gallery-sales' });
 }

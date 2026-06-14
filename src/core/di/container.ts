@@ -1,3 +1,9 @@
+import { GalleryController } from "../../modules/gallery/controllers/gallery.controller.js";
+import { GallerySalesController } from "../../modules/gallery/controllers/gallery-sales.controller.js";
+import { GalleryRepository } from "../../modules/gallery/repositories/gallery.repository.js";
+import { GallerySalesRepository } from "../../modules/gallery/repositories/gallery-sales.repository.js";
+import { GalleryService } from "../../modules/gallery/services/gallery.service.js";
+import { GallerySalesService } from "../../modules/gallery/services/gallery-sales.service.js";
 import { asClass, asValue, createContainer, InjectionMode } from 'awilix';
 import { getDb } from '@/infra/db/client.js';
 import { AuthController } from '@/modules/auth/controllers/auth.controller.js';
@@ -31,6 +37,12 @@ export function setupContainer() {
 		usersController: asClass(UsersController).singleton(),
 		propertiesController: asClass(PropertiesController).singleton(),
 		authController: asClass(AuthController).singleton(),
+        galleryRepository: asClass(GalleryRepository).singleton(),
+        galleryService: asClass(GalleryService).singleton(),
+        galleryController: asClass(GalleryController).singleton(),
+		gallerySalesRepository: asClass(GallerySalesRepository).singleton(),
+		gallerySalesService: asClass(GallerySalesService).singleton(),
+		gallerySalesController: asClass(GallerySalesController).singleton(),
 	});
 
 	return container;
