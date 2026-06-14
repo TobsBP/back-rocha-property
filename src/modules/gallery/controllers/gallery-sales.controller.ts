@@ -3,6 +3,7 @@ import { uploadImage } from '../../../shared/cloudinary.js';
 import type { IGallerySalesService } from '../interfaces/gallery-sales.service.interface.js';
 import type {
 	CreateGallerySaleBody,
+	DeleteGallerySaleBody,
 	GallerySaleParams,
 	ListGallerySalesQuery,
 	UpdateGallerySaleBody,
@@ -47,20 +48,25 @@ export class GallerySalesController {
 	};
 
 	delete = async (
-		request: FastifyRequest<{ Params: GallerySaleParams }>,
+		request: FastifyRequest<{ Body: DeleteGallerySaleBody }>,
 		reply: FastifyReply,
 	) => {
-		await this.service.delete(request.params.id);
+		await this.service.delete(request.body.id);
 		return reply.status(204).send();
 	};
 
 	uploadImg = async (request: FastifyRequest, reply: FastifyReply) => {
-		const data = await request.file();
-		if (!data) return reply.status(400).send({ message: 'No file provided' });
+		const parts = request.files();
+		const urls: string[] = [];
 
-		const buffer = await data.toBuffer();
-		const url = await uploadImage(buffer);
+		for await (const part of parts) {
+			const buffer = await part.toBuffer();
+			const url = await uploadImage(buffer);
+			urls.push(url);
+		}
 
-		return reply.status(201).send({ url });
+		if (urls.length === 0) return reply.status(400).send({ message: 'No files provided' });
+
+		return reply.status(201).send({ urls });
 	};
 }

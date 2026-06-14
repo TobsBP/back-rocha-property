@@ -69,7 +69,7 @@ export class GallerySalesRepository implements IGallerySalesRepository {
 			id: row.id,
 			soldAt: row.soldAt.toISOString(),
 			description: row.description,
-			imgUrl: row.imgUrl,
+			imgUrls: row.imgUrls ?? [],
 			createdAt: row.createdAt.toISOString(),
 			updatedAt: row.updatedAt.toISOString(),
 		};

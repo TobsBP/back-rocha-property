@@ -1,15 +1,16 @@
 import type { FastifyPluginAsyncTypebox } from '@fastify/type-provider-typebox';
 import { container } from '../../../core/di/container.js';
 import { requireAdmin } from '../../../shared/hooks/require-admin.hook.js';
-import { UploadImageResponseSchema } from '../../properties/schemas/index.js';
 import type { GallerySalesController } from '../controllers/gallery-sales.controller.js';
 import {
 	CreateGallerySaleBodySchema,
+	DeleteGallerySaleBodySchema,
 	GallerySaleParamsSchema,
 	GallerySaleSchema,
 	ListGallerySalesQuerySchema,
 	PaginatedGallerySalesSchema,
 	UpdateGallerySaleBodySchema,
+	UploadGallerySaleImagesResponseSchema,
 } from '../schemas/gallery-sales.js';
 
 export const gallerySalesRoutes: FastifyPluginAsyncTypebox = async (fastify) => {
@@ -49,7 +50,7 @@ export const gallerySalesRoutes: FastifyPluginAsyncTypebox = async (fastify) => 
 				tags: ['Gallery Sales'],
 				summary: 'Upload gallery sale image',
 				consumes: ['multipart/form-data'],
-				response: { 201: UploadImageResponseSchema },
+				response: { 201: UploadGallerySaleImagesResponseSchema },
 			},
 		},
 		controller.uploadImg,
@@ -83,12 +84,12 @@ export const gallerySalesRoutes: FastifyPluginAsyncTypebox = async (fastify) => 
 	);
 
 	fastify.delete(
-		'/:id',
+		'/',
 		{
 			preHandler: requireAdmin,
 			schema: {
 				tags: ['Gallery Sales'],
-				params: GallerySaleParamsSchema,
+				body: DeleteGallerySaleBodySchema,
 				response: { 204: { type: 'null' } },
 			},
 		},

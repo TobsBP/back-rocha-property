@@ -4,7 +4,7 @@ export const gallerySales = pgTable('gallery_sales', {
 	id: uuid('id').primaryKey().defaultRandom(),
 	soldAt: timestamp('sold_at').notNull(),
 	description: text('description').notNull(),
-	imgUrl: text('img_url').notNull(),
+	imgUrls: text('img_urls').array().notNull().default([]),
 	createdAt: timestamp('created_at').notNull().defaultNow(),
 	updatedAt: timestamp('updated_at').notNull().defaultNow(),
 });

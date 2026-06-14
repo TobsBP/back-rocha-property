@@ -17,7 +17,10 @@ const fastify = Fastify({
 
 async function bootstrap() {
 	setupContainer();
-	await fastify.register(cors, { origin: true });
+	await fastify.register(cors, {
+		origin: true,
+		methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+	});
 	await fastify.register(multipart, { limits: { fileSize: 10 * 1024 * 1024 } }); // 10 MB
 	await fastify.register(helmet, {
 		contentSecurityPolicy: false,
