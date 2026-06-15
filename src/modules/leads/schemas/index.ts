@@ -12,6 +12,7 @@ export const LeadSchema = Type.Object({
 	phone: Type.String(),
 	message: Type.String(),
 	propertyId: Type.Optional(UuidSchema),
+	propertyName: Type.Optional(Type.String()),
 	createdAt: Type.String({ format: 'date-time' }),
 	updatedAt: Type.String({ format: 'date-time' }),
 });

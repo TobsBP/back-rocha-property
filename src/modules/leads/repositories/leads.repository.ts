@@ -1,6 +1,6 @@
 import { count, desc, eq } from 'drizzle-orm';
 import type { Db } from '../../../infra/db/client.js';
-import { leads } from '../../../infra/db/schema/index.js';
+import { leads, properties } from '../../../infra/db/schema/index.js';
 import type { ILeadsRepository } from '../interfaces/leads.repository.interface.js';
 import type { CreateLeadBody, LeadDto } from '../schemas/index.js';
 
@@ -15,8 +15,19 @@ export class LeadsRepository implements ILeadsRepository {
 
 		const [rows, [{ value: total }]] = await Promise.all([
 			this.db
-				.select()
+				.select({
+					id: leads.id,
+					name: leads.name,
+					email: leads.email,
+					phone: leads.phone,
+					message: leads.message,
+					propertyId: leads.propertyId,
+					propertyName: properties.title,
+					createdAt: leads.createdAt,
+					updatedAt: leads.updatedAt,
+				})
 				.from(leads)
+				.leftJoin(properties, eq(leads.propertyId, properties.id))
 				.limit(limit)
 				.offset(offset)
 				.orderBy(desc(leads.createdAt)),
@@ -27,6 +38,7 @@ export class LeadsRepository implements ILeadsRepository {
 			rows: rows.map((row) => ({
 				...row,
 				propertyId: row.propertyId ?? undefined,
+				propertyName: row.propertyName ?? undefined,
 				createdAt: row.createdAt.toISOString(),
 				updatedAt: row.updatedAt.toISOString(),
 			})),
@@ -36,8 +48,19 @@ export class LeadsRepository implements ILeadsRepository {
 
 	async findById(id: string): Promise<LeadDto | null> {
 		const [row] = await this.db
-			.select()
+			.select({
+				id: leads.id,
+				name: leads.name,
+				email: leads.email,
+				phone: leads.phone,
+				message: leads.message,
+				propertyId: leads.propertyId,
+				propertyName: properties.title,
+				createdAt: leads.createdAt,
+				updatedAt: leads.updatedAt,
+			})
 			.from(leads)
+			.leftJoin(properties, eq(leads.propertyId, properties.id))
 			.where(eq(leads.id, id))
 			.limit(1);
 
@@ -46,35 +69,28 @@ export class LeadsRepository implements ILeadsRepository {
 		return {
 			...row,
 			propertyId: row.propertyId ?? undefined,
+			propertyName: row.propertyName ?? undefined,
 			createdAt: row.createdAt.toISOString(),
 			updatedAt: row.updatedAt.toISOString(),
 		};
 	}
 
 	async create(data: CreateLeadBody): Promise<LeadDto> {
-		const [row] = await this.db.insert(leads).values(data).returning();
+		const [inserted] = await this.db.insert(leads).values(data).returning();
 
-		return {
-			...row,
-			propertyId: row.propertyId ?? undefined,
-			createdAt: row.createdAt.toISOString(),
-			updatedAt: row.updatedAt.toISOString(),
-		};
+    const result = await this.findById(inserted.id);
+		if (!result) {
+      throw new Error('Failed to retrieve lead after creation');
+    }
+		return result;
 	}
 
 	async delete(id: string): Promise<LeadDto | null> {
-		const [row] = await this.db
-			.delete(leads)
-			.where(eq(leads.id, id))
-			.returning();
+		const existing = await this.findById(id);
+		if (!existing) return null;
 
-		if (!row) return null;
+		await this.db.delete(leads).where(eq(leads.id, id));
 
-		return {
-			...row,
-			propertyId: row.propertyId ?? undefined,
-			createdAt: row.createdAt.toISOString(),
-			updatedAt: row.updatedAt.toISOString(),
-		};
+		return existing;
 	}
 }
