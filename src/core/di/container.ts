@@ -11,6 +11,9 @@ import { UsersService } from '@/modules/users/services/users.service.js';
 import { GalleryController } from '../../modules/gallery/controllers/gallery.controller.js';
 import { GalleryRepository } from '../../modules/gallery/repositories/gallery.repository.js';
 import { GalleryService } from '../../modules/gallery/services/gallery.service.js';
+import { LeadsController } from '../../modules/leads/controllers/leads.controller.js';
+import { LeadsRepository } from '../../modules/leads/repositories/leads.repository.js';
+import { LeadsService } from '../../modules/leads/services/leads.service.js';
 
 export const container = createContainer({
 	injectionMode: InjectionMode.PROXY,
@@ -37,6 +40,9 @@ export function setupContainer() {
 		propertiesController: asClass(PropertiesController).singleton(),
 		authController: asClass(AuthController).singleton(),
 		galleryController: asClass(GalleryController).singleton(),
+		leadsRepository: asClass(LeadsRepository).singleton(),
+		leadsService: asClass(LeadsService).singleton(),
+		leadsController: asClass(LeadsController).singleton(),
 	});
 
 	return container;
