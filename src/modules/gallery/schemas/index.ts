@@ -1,28 +1,56 @@
-import { Type, Static } from "@sinclair/typebox";
-import { UuidSchema, PaginationQuerySchema, PaginatedResponse } from "../../../shared/schemas/common.js";
+import { type Static, Type } from '@sinclair/typebox';
+import {
+	PaginatedResponse,
+	PaginationQuerySchema,
+	UuidSchema,
+} from '../../../shared/schemas/common.js';
 
-export const GallerySchema = Type.Object({
-    id: UuidSchema,
-    name: Type.String(),
-    createdAt: Type.String({ format: "date-time" }),
-    updatedAt: Type.String({ format: "date-time" }),
+/**
+ * Gallery Sale / Item Schema
+ */
+export const GallerySaleSchema = Type.Object({
+	id: UuidSchema,
+	soldAt: Type.String({ format: 'date-time' }),
+	description: Type.String(),
+	imgUrls: Type.Array(Type.String()),
+	createdAt: Type.String({ format: 'date-time' }),
+	updatedAt: Type.String({ format: 'date-time' }),
 });
 
-export const CreateGalleryBodySchema = Type.Object({
-    name: Type.String(),
+export const CreateGallerySaleBodySchema = Type.Object({
+	soldAt: Type.String({ format: 'date-time' }),
+	description: Type.String({ minLength: 1 }),
+	imgUrls: Type.Array(Type.String({ format: 'uri' })),
 });
 
-export const UpdateGalleryBodySchema = Type.Partial(CreateGalleryBodySchema);
+export const UpdateGallerySaleBodySchema = Type.Partial(
+	CreateGallerySaleBodySchema,
+);
 
-export const GalleryParamsSchema = Type.Object({
-    id: UuidSchema,
+export const GallerySaleParamsSchema = Type.Object({
+	id: UuidSchema,
 });
 
-export const ListGalleryQuerySchema = PaginationQuerySchema;
-export const PaginatedGallerySchema = PaginatedResponse(GallerySchema);
+export const DeleteGallerySaleBodySchema = Type.Object({
+	id: UuidSchema,
+});
 
-export type GalleryDto = Static<typeof GallerySchema>;
-export type CreateGalleryBody = Static<typeof CreateGalleryBodySchema>;
-export type UpdateGalleryBody = Static<typeof UpdateGalleryBodySchema>;
-export type GalleryParams = Static<typeof GalleryParamsSchema>;
-export type ListGalleryQuery = Static<typeof ListGalleryQuerySchema>;
+export const ListGallerySalesQuerySchema = PaginationQuerySchema;
+export const PaginatedGallerySalesSchema = PaginatedResponse(GallerySaleSchema);
+
+export const UploadGallerySaleImagesResponseSchema = Type.Object({
+	urls: Type.Array(Type.String({ format: 'uri' })),
+});
+
+/**
+ * Types
+ */
+export type GallerySaleDto = Static<typeof GallerySaleSchema>;
+export type CreateGallerySaleBody = Static<typeof CreateGallerySaleBodySchema>;
+export type UpdateGallerySaleBody = Static<typeof UpdateGallerySaleBodySchema>;
+export type GallerySaleParams = Static<typeof GallerySaleParamsSchema>;
+export type DeleteGallerySaleBody = Static<typeof DeleteGallerySaleBodySchema>;
+export type ListGallerySalesQuery = Static<typeof ListGallerySalesQuerySchema>;
+export type UploadGallerySaleImagesResponse = Static<
+	typeof UploadGallerySaleImagesResponseSchema
+>;

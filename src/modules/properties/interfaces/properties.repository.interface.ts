@@ -16,4 +16,5 @@ export interface IPropertiesRepository {
 	): Promise<{ data: AdminPropertySummary[]; total: number }>;
 	create(data: CreatePropertyBody): Promise<Property>;
 	update(id: string, data: UpdatePropertyBody): Promise<Property | null>;
+	delete(id: string): Promise<boolean>;
 }

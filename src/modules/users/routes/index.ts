@@ -7,13 +7,11 @@ import {
 	CreateUserBodySchema,
 	ListUsersQuerySchema,
 	PaginatedUsersSchema,
-	type UpdateUserBody,
 	UpdateUserBodySchema,
 	type UserParams,
 	UserParamsSchema,
 	UserSchema,
 } from '../schemas/index.js';
-
 export const usersRoutes: FastifyPluginAsyncTypebox = async (fastify) => {
 	const controller = container.resolve<UsersController>('usersController');
 

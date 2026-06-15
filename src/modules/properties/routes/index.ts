@@ -3,8 +3,8 @@ import { container } from '@/core/di/container.js';
 import { requireAdmin } from '@/shared/hooks/require-admin.hook.js';
 import type { PropertiesController } from '../controllers/properties.controller.js';
 import {
-	type CreatePropertyBody,
 	CreatePropertyBodySchema,
+	DeletePropertyBodySchema,
 	ListPropertiesQuerySchema,
 	PaginatedAdminPropertiesSchema,
 	PaginatedPropertiesSchema,
@@ -22,6 +22,7 @@ export const propertiesRoutes: FastifyPluginAsyncTypebox = async (fastify) => {
 	fastify.get(
 		'',
 		{
+			config: { isPublic: true },
 			schema: {
 				tags: ['Properties'],
 				summary: 'List properties',
@@ -49,6 +50,7 @@ export const propertiesRoutes: FastifyPluginAsyncTypebox = async (fastify) => {
 	fastify.get(
 		'/:id',
 		{
+			config: { isPublic: true },
 			schema: {
 				tags: ['Properties'],
 				summary: 'Get property by ID',
@@ -100,5 +102,19 @@ export const propertiesRoutes: FastifyPluginAsyncTypebox = async (fastify) => {
 			},
 		},
 		controller.update,
+	);
+
+	fastify.delete(
+		'',
+		{
+			preHandler: requireAdmin,
+			schema: {
+				tags: ['Properties'],
+				summary: 'Delete property',
+				body: DeletePropertyBodySchema,
+				response: { 204: { type: 'null' } },
+			},
+		},
+		controller.delete,
 	);
 };

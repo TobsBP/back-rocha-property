@@ -3,6 +3,7 @@ import { uploadImage } from '@/shared/cloudinary.js';
 import type { IPropertiesService } from '../interfaces/properties.service.interface.js';
 import type {
 	CreatePropertyBody,
+	DeletePropertyBody,
 	ListPropertiesQuery,
 	PropertyParams,
 	UpdatePropertyBody,
@@ -57,6 +58,14 @@ export class PropertiesController {
 	) => {
 		const result = await this.service.update(request.params.id, request.body);
 		return reply.send(result);
+	};
+
+	delete = async (
+		request: FastifyRequest<{ Body: DeletePropertyBody }>,
+		reply: FastifyReply,
+	) => {
+		await this.service.delete(request.body.id);
+		return reply.status(204).send();
 	};
 
 	uploadImage = async (request: FastifyRequest, reply: FastifyReply) => {

@@ -18,4 +18,5 @@ export interface IPropertiesService {
 	}>;
 	create(data: CreatePropertyBody): Promise<Property>;
 	update(id: string, data: UpdatePropertyBody): Promise<Property>;
+	delete(id: string): Promise<void>;
 }

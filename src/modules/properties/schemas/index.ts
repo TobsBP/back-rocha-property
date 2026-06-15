@@ -77,6 +77,10 @@ export const CreatePropertyBodySchema = Type.Object({
 
 export const UpdatePropertyBodySchema = Type.Partial(CreatePropertyBodySchema);
 
+export const DeletePropertyBodySchema = Type.Object({
+	id: UuidSchema,
+});
+
 export const PropertyParamsSchema = Type.Object({
 	id: UuidSchema,
 });
@@ -102,6 +106,7 @@ export const UploadImageResponseSchema = Type.Object({
 export type PropertyDto = Static<typeof PropertySchema>;
 export type CreatePropertyBody = Static<typeof CreatePropertyBodySchema>;
 export type UpdatePropertyBody = Static<typeof UpdatePropertyBodySchema>;
+export type DeletePropertyBody = Static<typeof DeletePropertyBodySchema>;
 export type PropertyParams = Static<typeof PropertyParamsSchema>;
 export type ListPropertiesQuery = Static<typeof ListPropertiesQuerySchema>;
 export type UploadImageResponse = Static<typeof UploadImageResponseSchema>;

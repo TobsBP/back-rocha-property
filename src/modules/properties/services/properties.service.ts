@@ -63,4 +63,9 @@ export class PropertiesService implements IPropertiesService {
 		if (!item) throw new NotFoundError('Property', id);
 		return item;
 	}
+
+	async delete(id: string): Promise<void> {
+		const deleted = await this.repo.delete(id);
+		if (!deleted) throw new NotFoundError('Property', id);
+	}
 }

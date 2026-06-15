@@ -85,4 +85,12 @@ export class PropertiesRepository implements IPropertiesRepository {
 			.returning();
 		return property ?? null;
 	}
+
+	async delete(id: string): Promise<boolean> {
+		const result = await this.db
+			.delete(properties)
+			.where(eq(properties.id, id))
+			.returning({ id: properties.id });
+		return result.length > 0;
+	}
 }
