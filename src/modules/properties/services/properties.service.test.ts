@@ -33,7 +33,6 @@ describe('PropertiesService', () => {
 		city: 'São Paulo',
 		state: 'SP',
 		imageUrls: ['http://example.com/image.jpg'],
-		brokerId: null,
 		createdAt: new Date().toISOString(),
 		updatedAt: new Date().toISOString(),
 	};

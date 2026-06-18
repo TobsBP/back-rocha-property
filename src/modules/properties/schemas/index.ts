@@ -47,7 +47,6 @@ export const PropertySchema = Type.Object({
 	city: Type.String(),
 	state: Type.String(),
 	imageUrls: Type.Array(Type.String(), { default: [] }),
-	brokerId: Type.Optional(UuidSchema),
 	createdAt: Type.String({ format: 'date-time' }),
 	updatedAt: Type.String({ format: 'date-time' }),
 });
@@ -72,7 +71,6 @@ export const CreatePropertyBodySchema = Type.Object({
 	city: Type.String(),
 	state: Type.String({ minLength: 2, maxLength: 2 }),
 	imageUrls: Type.Optional(Type.Array(Type.String(), { default: [] })),
-	brokerId: Type.Optional(UuidSchema),
 });
 
 export const UpdatePropertyBodySchema = Type.Partial(CreatePropertyBodySchema);

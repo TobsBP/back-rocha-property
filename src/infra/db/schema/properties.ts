@@ -9,7 +9,6 @@ import {
 	uuid,
 	varchar,
 } from 'drizzle-orm/pg-core';
-import { users } from './users.js';
 
 export const propertyTypeEnum = pgEnum('property_type', [
 	'casa',
@@ -53,7 +52,6 @@ export const properties = pgTable('properties', {
 	city: varchar('city', { length: 120 }).notNull(),
 	state: varchar('state', { length: 2 }).notNull(),
 	imageUrls: text('image_urls').array().notNull().default([]),
-	brokerId: uuid('broker_id').references(() => users.id),
 	createdAt: timestamp('created_at').notNull().defaultNow(),
 	updatedAt: timestamp('updated_at').notNull().defaultNow(),
 });
