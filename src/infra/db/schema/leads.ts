@@ -7,7 +7,7 @@ export const leads = pgTable('leads', {
 	email: varchar('email', { length: 255 }).notNull(),
 	phone: varchar('phone', { length: 20 }).notNull(),
 	message: text('message').notNull(),
-	propertyId: uuid('property_id').references(() => properties.id),
+	propertyId: uuid('property_id').references(() => properties.id, { onDelete: 'cascade' }),
 	createdAt: timestamp('created_at').notNull().defaultNow(),
 	updatedAt: timestamp('updated_at').notNull().defaultNow(),
 });
