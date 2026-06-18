@@ -24,3 +24,50 @@ export async function uploadImage(
 
 	return result.secure_url;
 }
+
+export interface CloudinaryImage {
+	publicId: string;
+	url: string;
+	createdAt: string;
+	format: string;
+	width: number;
+	height: number;
+}
+
+export interface ListImagesResult {
+	resources: CloudinaryImage[];
+	nextCursor?: string;
+}
+
+export async function listImages(
+	maxResults = 30,
+	nextCursor?: string,
+): Promise<ListImagesResult> {
+	const result = await cloudinary.api.resources({
+		type: 'upload',
+		prefix: 'rocha-property',
+		max_results: maxResults,
+		...(nextCursor && { next_cursor: nextCursor }),
+	});
+
+	return {
+		resources: result.resources.map(
+			(r: {
+				public_id: string;
+				secure_url: string;
+				created_at: string;
+				format: string;
+				width: number;
+				height: number;
+			}) => ({
+				publicId: r.public_id,
+				url: r.secure_url,
+				createdAt: r.created_at,
+				format: r.format,
+				width: r.width,
+				height: r.height,
+			}),
+		),
+		...(result.next_cursor && { nextCursor: result.next_cursor }),
+	};
+}

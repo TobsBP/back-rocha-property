@@ -1,9 +1,10 @@
 import type { FastifyReply, FastifyRequest } from 'fastify';
-import { uploadImage } from '@/shared/cloudinary.js';
+import { listImages, uploadImage } from '@/shared/cloudinary.js';
 import type { IPropertiesService } from '../interfaces/properties.service.interface.js';
 import type {
 	CreatePropertyBody,
 	DeletePropertyBody,
+	ListImagesQuery,
 	ListPropertiesQuery,
 	PropertyParams,
 	UpdatePropertyBody,
@@ -66,6 +67,15 @@ export class PropertiesController {
 	) => {
 		await this.service.delete(request.body.id);
 		return reply.status(204).send();
+	};
+
+	listImages = async (
+		request: FastifyRequest<{ Querystring: ListImagesQuery }>,
+		reply: FastifyReply,
+	) => {
+		const { maxResults, nextCursor } = request.query;
+		const result = await listImages(maxResults, nextCursor);
+		return reply.send(result);
 	};
 
 	uploadImage = async (request: FastifyRequest, reply: FastifyReply) => {

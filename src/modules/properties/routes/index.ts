@@ -5,6 +5,8 @@ import type { PropertiesController } from '../controllers/properties.controller.
 import {
 	CreatePropertyBodySchema,
 	DeletePropertyBodySchema,
+	ListImagesQuerySchema,
+	ListImagesResponseSchema,
 	ListPropertiesQuerySchema,
 	PaginatedAdminPropertiesSchema,
 	PaginatedPropertiesSchema,
@@ -73,6 +75,20 @@ export const propertiesRoutes: FastifyPluginAsyncTypebox = async (fastify) => {
 			},
 		},
 		controller.create,
+	);
+
+	fastify.get(
+		'/img',
+		{
+			preHandler: requireAdmin,
+			schema: {
+				tags: ['Properties'],
+				summary: 'List images from Cloudinary',
+				querystring: ListImagesQuerySchema,
+				response: { 200: ListImagesResponseSchema },
+			},
+		},
+		controller.listImages,
 	);
 
 	fastify.post(

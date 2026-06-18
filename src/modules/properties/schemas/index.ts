@@ -104,6 +104,27 @@ export const UploadImageResponseSchema = Type.Object({
 	urls: Type.Array(Type.String({ format: 'uri' })),
 });
 
+export const ListImagesQuerySchema = Type.Object({
+	maxResults: Type.Optional(
+		Type.Integer({ minimum: 1, maximum: 500, default: 30 }),
+	),
+	nextCursor: Type.Optional(Type.String()),
+});
+
+export const CloudinaryImageSchema = Type.Object({
+	publicId: Type.String(),
+	url: Type.String({ format: 'uri' }),
+	createdAt: Type.String({ format: 'date-time' }),
+	format: Type.String(),
+	width: Type.Integer(),
+	height: Type.Integer(),
+});
+
+export const ListImagesResponseSchema = Type.Object({
+	resources: Type.Array(CloudinaryImageSchema),
+	nextCursor: Type.Optional(Type.String()),
+});
+
 export type PropertyDto = Static<typeof PropertySchema>;
 export type CreatePropertyBody = Static<typeof CreatePropertyBodySchema>;
 export type UpdatePropertyBody = Static<typeof UpdatePropertyBodySchema>;
@@ -112,3 +133,5 @@ export type PropertyParams = Static<typeof PropertyParamsSchema>;
 export type ListPropertiesQuery = Static<typeof ListPropertiesQuerySchema>;
 export type UploadImageResponse = Static<typeof UploadImageResponseSchema>;
 export type AdminPropertySummary = Static<typeof AdminPropertySummarySchema>;
+export type ListImagesQuery = Static<typeof ListImagesQuerySchema>;
+export type ListImagesResponse = Static<typeof ListImagesResponseSchema>;
