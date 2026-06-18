@@ -17,6 +17,9 @@ export const propertyTypeEnum = pgEnum('property_type', [
 	'cobertura',
 	'loft',
 	'comercial',
+	'sitio',
+	'chacara',
+	'fazenda',
 ]);
 
 export const propertyPurposeEnum = pgEnum('property_purpose', [

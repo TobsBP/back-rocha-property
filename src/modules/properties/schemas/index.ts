@@ -12,6 +12,9 @@ export const PropertyTypeSchema = Type.Union([
 	Type.Literal('cobertura'),
 	Type.Literal('loft'),
 	Type.Literal('comercial'),
+	Type.Literal('sitio'),
+	Type.Literal('chacara'),
+	Type.Literal('fazenda'),
 ]);
 
 export const PropertyPurposeSchema = Type.Union([
