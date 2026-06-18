@@ -52,7 +52,7 @@ export const properties = pgTable('properties', {
 	neighborhood: varchar('neighborhood', { length: 120 }),
 	city: varchar('city', { length: 120 }).notNull(),
 	state: varchar('state', { length: 2 }).notNull(),
-	imageUrl: text('image_url'),
+	imageUrls: text('image_urls').array().notNull().default([]),
 	brokerId: uuid('broker_id').references(() => users.id),
 	createdAt: timestamp('created_at').notNull().defaultNow(),
 	updatedAt: timestamp('updated_at').notNull().defaultNow(),

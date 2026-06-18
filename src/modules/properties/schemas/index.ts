@@ -46,7 +46,7 @@ export const PropertySchema = Type.Object({
 	neighborhood: Type.Optional(Type.String()),
 	city: Type.String(),
 	state: Type.String(),
-	imageUrl: Type.Optional(Type.String()),
+	imageUrls: Type.Array(Type.String(), { default: [] }),
 	brokerId: Type.Optional(UuidSchema),
 	createdAt: Type.String({ format: 'date-time' }),
 	updatedAt: Type.String({ format: 'date-time' }),
@@ -71,7 +71,7 @@ export const CreatePropertyBodySchema = Type.Object({
 	neighborhood: Type.Optional(Type.String()),
 	city: Type.String(),
 	state: Type.String({ minLength: 2, maxLength: 2 }),
-	imageUrl: Type.Optional(Type.String()),
+	imageUrls: Type.Optional(Type.Array(Type.String(), { default: [] })),
 	brokerId: Type.Optional(UuidSchema),
 });
 
@@ -100,7 +100,7 @@ export const PaginatedAdminPropertiesSchema = PaginatedResponse(
 );
 
 export const UploadImageResponseSchema = Type.Object({
-	url: Type.String({ format: 'uri' }),
+	urls: Type.Array(Type.String({ format: 'uri' })),
 });
 
 export type PropertyDto = Static<typeof PropertySchema>;

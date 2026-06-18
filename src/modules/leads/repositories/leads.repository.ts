@@ -78,10 +78,10 @@ export class LeadsRepository implements ILeadsRepository {
 	async create(data: CreateLeadBody): Promise<LeadDto> {
 		const [inserted] = await this.db.insert(leads).values(data).returning();
 
-    const result = await this.findById(inserted.id);
+		const result = await this.findById(inserted.id);
 		if (!result) {
-      throw new Error('Failed to retrieve lead after creation');
-    }
+			throw new Error('Failed to retrieve lead after creation');
+		}
 		return result;
 	}
 

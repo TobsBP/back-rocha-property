@@ -37,7 +37,7 @@ describe('Properties Routes', () => {
 		isNew: false,
 		city: 'São Paulo',
 		state: 'SP',
-		imageUrl: 'http://example.com/image.jpg',
+		imageUrls: ['http://example.com/image.jpg'],
 		createdAt: new Date().toISOString(),
 		updatedAt: new Date().toISOString(),
 	};

@@ -43,6 +43,13 @@
 			"when": 1781529936909,
 			"tag": "0005_serious_mandrill",
 			"breakpoints": true
+		},
+		{
+			"idx": 6,
+			"version": "7",
+			"when": 1781793370885,
+			"tag": "0006_red_tombstone",
+			"breakpoints": true
 		}
 	]
 }

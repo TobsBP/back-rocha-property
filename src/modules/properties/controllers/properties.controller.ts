@@ -69,14 +69,19 @@ export class PropertiesController {
 	};
 
 	uploadImage = async (request: FastifyRequest, reply: FastifyReply) => {
-		const data = await request.file();
-		if (!data) {
+		const buffers: Buffer[] = [];
+		for await (const part of request.files()) {
+			buffers.push(await part.toBuffer());
+		}
+
+		if (buffers.length === 0) {
 			return reply.status(400).send({ message: 'No file provided' });
 		}
 
-		const buffer = await data.toBuffer();
-		const url = await uploadImage(buffer);
+		const urls = await Promise.all(
+			buffers.map((buffer) => uploadImage(buffer)),
+		);
 
-		return reply.status(201).send({ url });
+		return reply.status(201).send({ urls });
 	};
 }

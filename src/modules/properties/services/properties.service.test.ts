@@ -32,7 +32,7 @@ describe('PropertiesService', () => {
 		neighborhood: 'Jardins',
 		city: 'São Paulo',
 		state: 'SP',
-		imageUrl: 'http://example.com/image.jpg',
+		imageUrls: ['http://example.com/image.jpg'],
 		brokerId: null,
 		createdAt: new Date().toISOString(),
 		updatedAt: new Date().toISOString(),
